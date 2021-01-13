@@ -1,7 +1,7 @@
 import math
 import time
 import threading
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 # A - pole powierzchni - usr def
 # S - wydzelane ciepło w kelwinach/s __ usr def
@@ -19,13 +19,18 @@ import threading
 
 # T_n - następna temperatura
 
-# n - krok obecny
+# T_star - temperatura docelowa - usr def
+# T_zero - temperatura początkowa - usr def
+# T_amb - temperatura otoczenia - usr def
+
+# n - liczba kroków - diagnostyczne
 
 
 class UAR():
-    def __init__(self, T_star, T_zero, kp, Tp, Ti, Td, A, e, W, S):
+    def __init__(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S):
         self.T_star = T_star
         self.T_zero = T_zero
+        self.T_amb = T_amb
         self.kp = kp
         self.Tp = Tp
         self.Ti = Ti
@@ -38,57 +43,55 @@ class UAR():
         self.W = W
         self.sigma = 5.6704*(10**(-8))
         self.pause = threading.Event()                      # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear() 
-        self.terminate = false                              # ustawienie terminate na true zatrzymuje program
+        self.terminate = False                              # ustawienie terminate na true zatrzymuje program
         self.uMin = 0.5                                     # minimalne wzmocnienie
         self.uMax = 2                                       # maksymalne wzmocnienie
-        #self.__build_data__()
+        self.n = n           # diagnostyczne                         
+        self.__start__()
 
     def __T_n__(self):
-        return self.T_historic[-1] + self.Tp*(self.S * self.__u_n__() - (self.sigma * self.e * self.A * ((self.T_historic[-1]**4) - (self.T_zero**4)) * W))
+        return self.T_historic[-1] + self.Tp*(self.S * self.__u_n__() - (self.sigma * self.e * self.A * ((self.T_historic[-1]**4) - (self.T_amb**4)) * self.W))
 
     def __e_n__(self):
         return self.T_star - self.T_historic[-1]
 
     def __u_n__(self):
         temp = self.kp*(self.e_historic[-2] + (self.Tp/self.Ti) * sum(self.e_historic) + self.Td/self.Tp*(self.e_historic[-1] - self.e_historic[-2]))
-        if (temp < uMin):
-            return uMin
-        elif (temp > uMax):
-            return uMax
+        if (temp < self.uMin):
+            return self.uMin
+        elif (temp > self.uMax):
+            return self.uMax
         else:
             return temp
 
-    # # uwaga, opieram się tutaj na wysokości h bardziej historycznej (n-2 i n-1)
-    # def __S_n__(self):
-    #     return self.A/self.Tp * (self.T_historic[-1] - self.T_historic[-2]) + self.beta * self.math.sqrt(self.T_historic[-1])
-
     def __build_data__(self):
+        val = 0 #diagnostyczne
 
-        while True:
+        while val < self.n: # do celów diagnostycznych
+        # while True:        # odkomentować gdy będą przyciski do wznowienia i stopu (sprawdzić i wykorzystać ich implementację)
             self.e_historic.append(self.__e_n__())
-            # print(u)
-            # S = S_n(A, T_historic, Tp, beta, n)
 
             #self.S = 0.05 * self.__u_n__()
             temp = self.__T_n__()
             # print(temp)
             self.T_historic.append(temp)
             self.pause.wait()
-            if (terminate):
-                h_historic.clear()
+            if (self.terminate):
+                T_historic.clear()
                 e_historic.clear()
                 break
+            val += 1 # diagnostyczne
             
     def __start__(self):
-        t = threading.Thread(name="process", target=self.__build_data__, args=(self,))
+        t = threading.Thread(name="process", target=self.__build_data__)
         t.start()
 
-
-    # def plot(self, show, save):
-    #     pl = plt.plot(self.T_historic)
-    #     plt.ylabel('h')
-    #     plt.xlabel('n')
-    #     if save:
-    #         plt.savefig("static/images/plot.png", dpi=250)
-    #     if show:
-    #         plt.show()
+    # poniższa funkcja ma przedewszystkim zastosowanie diagnostyczne
+    def plot(self, show, save):
+        pl = plt.plot(self.T_historic)
+        plt.ylabel('T[stC')
+        plt.xlabel('n')
+        if save:
+            plt.savefig("static/images/plot.png", dpi=250)
+        if show:
+            plt.show()
