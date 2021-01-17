@@ -16,6 +16,10 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+      responsive: true,
+      animation:{
+        easing: 'linear'
+      },
         scales: {
             yAxes: [{
                 ticks: {
