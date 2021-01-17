@@ -16,8 +16,6 @@ app = Flask(__name__)
 # to run flask
 # flask run
 
-def z(a):
-    return a*2*(-1)
 @app.route('/_stuff', methods = ['GET'])
 def stuff():
     return jsonify(result=random.randint(0, 10))
@@ -26,7 +24,7 @@ def stuff():
 @app.route("/home")
 def home():
     a = 1
-    return render_template('home.html', temp = z(a))
+    return render_template('home.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
