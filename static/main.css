@@ -1,0 +1,24 @@
+body
+{
+  background-color: #fbffe3;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  gap: 0px 0px;
+  grid-template-areas:
+    ". . . . . . . . . . . . . . . ."
+    ". option1 plot plot plot plot plot plot plot plot plot plot plot plot . ."
+    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
+    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
+    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
+    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
+    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
+    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
+    ". . . . . . . . . . . . . . . .";
+}
+
+.plot { grid-area: plot; }
+
+.option1 { grid-area: option1; }
