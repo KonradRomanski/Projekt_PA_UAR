@@ -11,6 +11,9 @@ app = Flask(__name__)
 #UNIX
 #export FLASK_APP=main.py
 #-------------------------
+# when debug mode is needed
+# $env:FLASK_DEBUG = 1 (for WIN)
+# to run flask
 # flask run
 
 def z(a):
