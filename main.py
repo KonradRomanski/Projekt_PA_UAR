@@ -19,10 +19,20 @@ app = Flask(__name__)
 
 uar = UAR(1000, 320, 293.15, 293.15, 1, 0.005, 1, 10, 2, 0.6, 3, 2)
 
+
+@app.route('/_generate', methods = ['GET'])
+def generate():
+    global uar
+    print(f"[LOG] - Object created!")
+    uar = UAR(1000, 40, 70, 23, 1, 0.005, 1, 10, 2, 0.6, 3, 2)
+
+
 @app.route('/_stuff', methods = ['GET'])
 def stuff():
     # return jsonify(result=random.randint(0, 10))
-    return jsonify(result=uar.get_step())
+    a = uar.get_step()
+    print(f"[LOG] - Next value: {a}")
+    return jsonify(result=a)
 
 @app.route("/")
 @app.route("/home")
