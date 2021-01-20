@@ -42,11 +42,11 @@ class UAR():
         self.S = S
         self.W = W
         self.sigma = 5.6704*(10**(-8))
-        self.pause = threading.Event()                      # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear() 
+        self.pause = threading.Event()                      # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear()
         self.terminate = False                              # ustawienie terminate na true zatrzymuje program
         self.uMin = 0.5                                     # minimalne wzmocnienie
         self.uMax = 2                                       # maksymalne wzmocnienie
-        self.n = n           # diagnostyczne                         
+        self.n = n           # diagnostyczne
         self.__start__()
 
     def __T_n__(self):
@@ -81,7 +81,7 @@ class UAR():
                 e_historic.clear()
                 break
             val += 1 # diagnostyczne
-            
+
     def __start__(self):
         t = threading.Thread(name="process", target=self.__build_data__)
         t.start()
@@ -95,8 +95,8 @@ class UAR():
             plt.savefig("static/images/plot.png", dpi=250)
         if show:
             plt.show()
-            
-    def __get_step__(self):
+
+    def get_step(self):
         temp = self.__T_n__()
         self.T_historic.append(temp)
         return temp

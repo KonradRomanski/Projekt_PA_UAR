@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 import random
+from UAR import UAR
 app = Flask(__name__)
 
 #FLASK SETUP
@@ -16,9 +17,12 @@ app = Flask(__name__)
 # to run flask
 # flask run
 
+uar = UAR(1000, 320, 293.15, 293.15, 1, 0.005, 1, 10, 2, 0.6, 3, 2)
+
 @app.route('/_stuff', methods = ['GET'])
 def stuff():
-    return jsonify(result=random.randint(0, 10))
+    # return jsonify(result=random.randint(0, 10))
+    return jsonify(result=uar.get_step())
 
 @app.route("/")
 @app.route("/home")
