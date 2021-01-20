@@ -1,6 +1,6 @@
 body
 {
-  background-color: #fbffe3;
+  /* background-color: #fbffe3; */
 }
 .grid-container
 {
@@ -29,3 +29,10 @@ body
   .w3-main{margin-top: 50px}
   #wzor {font-size: 13px !important; font-weight: bold;}
 }
+
+/* #myChart
+{
+  margin: auto;
+ width: 60%;
+ padding: 10px;
+} */
