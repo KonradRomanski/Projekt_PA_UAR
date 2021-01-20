@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <title>Projekt UAR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
@@ -39,19 +46,190 @@
         dataset.data.push(temp);
       });
       myChart.update();
-      if (c >20) removeData(myChart);
+      if (c >10) removeData(myChart);
     }
 
     </script>
     <meta charset="utf-8">
     <title></title>
   </head>
-  <body onload="update_values();">
-
-    <!-- <div style="height: 200px; width: 50%;  margin: 25px 50px 75px 100px;"> -->
 
 
-  </div>
+
+
+  <body onload="update_values();" class="w3-content w3-border-left w3-border-right">
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px" id="mySidebar">
+      <div class="w3-container w3-display-container w3-padding-16">
+        <h3>Projekt UAR</h3>
+        <h2></h2>
+        <hr>
+        <form action="/action_page.php" target="_blank">
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>n</label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="n" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>star</sub></label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>amb</sub></label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>k<sub>p</sub></label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>p</sub></label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>i</sub></label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>d</sub></label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>A</label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>e</label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>W</label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
+
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>S</label></p>
+            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
+
+
+
+          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane</button></p>
+          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację</button></p>
+          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
+          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
+        </form>
+      </div>
+    </nav>
+
+
+    <!-- Rozwijane mennu na telefony -->
+    <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+      <span class="w3-bar-item">Projekt UAR</span>
+      <a href="javascript:void(0)" class="w3-right w3-bar-item w3-button" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    </header>
+
+    <!-- Efekt tez na telefony -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+
+    <!-- Główny kontent -->
+    <div class="w3-main w3-white" style="margin-left:260px">
+
+
+        <div class="header" style="padding: 10px 20px;">
+            <h3>UAR wykorzystania małego układu, które powinno uzyskać żądaną temperaturę przy jedynie pasywnej utracie ciepła</h2>
+            <div class="wykres" style="width:100%; height: 100%; background-color: rgb(217, 255, 218);">
+
+              <canvas id="myChart"></canvas>
+              <script type="text/javascript" src="{{ url_for('static', filename='plot.js') }}"></script>
+
+            </div><br><br>
+        </div>
+
+        <!-- Długi teskst pod wykresem -->
+        <div class="w3-container" id="contact">
+            <h2>Opis projektu</h2>
+            <i style="width:30px; padding-left:30px">Sterowaniem jest objęte wykorzystanie pewnego urządzenia. Wykorzystanie
+                urządzenia generuje straty energii, które końcowo objawiają się podwyższeniem
+                temperatury urządzenia. Temperatura, do której jest wysterowywane urządzenie,
+                oznacza to, że urządzenie może wykonać pewne zadanie szybciej (oczywiście w
+                pewnych granicach), niż przy średnim obciążeniu urządzenia.</i><br><br><br>
+            <i id="wzor" style="width:30px; padding-left:30px; font-size: 20px;">T(n + 1) = (S · u(n) − (σeA(T<sup>4</sup>(n) - T<sub>0</sub><sup>4</sup>) · W)t<sub>p</sub> T(n)</i><br><br><br>
+        </div>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">T(n) - temperatura ostatnia</i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">T(n+1) - temperatura następna</i><br><br>
+
+            <i style="width:30px; padding-left:30px; font-size: 15px;">S - wydzielane ciepło w Kelwinach, przy minimalnym,</i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;"> zalecanym wykorzystaniu urządzenia na sekundę</i><br><br>
+
+            <i style="width:30px; padding-left:30px; font-size: 15px;">u(n) - wielkość sterująca</i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">A - pole powierzchni oddającej ciepło</i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">T0- temperatura otoczenia/początkowa</i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">tp- okres próbkowania  </i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">σ - Stała Stefana-Boltzmanna 5.6704 · 10<sup>-8</sup> [W/m<sup>2</sup>K<sup>4</sup>]</i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">e - emitancja obiektu (zakres od 0 do 1)</i><br><br>
+            <i style="width:30px; padding-left:30px; font-size: 15px;">W - konwersja Jouli na Kelwiny [K/J]</i><br><br><br><br>
+
+
+      <!-- Twórcy -->
+      <div class="w3-container" id="contact">
+        <h2>Twórcy projektu</h2>
+        <i class="fa fa-user" style="width:30px"></i>Lena Ptak<br>
+        <i style="width:30px; padding-left:30px"></i>145226<br><br>
+        <i style="width:30px; padding-left:30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia praesentium corporis ducimus libero consequatur et quidem non facilis nostrum dignissimos velit cum, aliquam laboriosam deleniti nemo, doloremque quod incidunt neque.</i><br><br><br>
+
+        <i class="fa fa-user" style="width:30px"></i>Konrad Romański<br>
+        <i style="width:30px; padding-left:30px"></i>145329<br><br>
+        <i style="width:30px; padding-left:30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia praesentium corporis ducimus libero consequatur et quidem non facilis nostrum dignissimos velit cum, aliquam laboriosam deleniti nemo, doloremque quod incidunt neque.</i><br><br><br>
+
+        <i class="fa fa-user" style="width:30px"></i>Paweł Perechuda<br>
+        <i style="width:30px; padding-left:30px"></i>145199<br><br>
+        <i style="width:30px; padding-left:30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia praesentium corporis ducimus libero consequatur et quidem non facilis nostrum dignissimos velit cum, aliquam laboriosam deleniti nemo, doloremque quod incidunt neque.</i><br><br><br>
+
+        <i class="fa fa-user" style="width:30px"></i>Tomasz Pieścikowski<br>
+        <i style="width:30px; padding-left:30px"></i>145418<br><br>
+        <i style="width:30px; padding-left:30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia praesentium corporis ducimus libero consequatur et quidem non facilis nostrum dignissimos velit cum, aliquam laboriosam deleniti nemo, doloremque quod incidunt neque.</i><br><br><br>
+      </div>
+
+      <footer class="w3-container w3-padding-16" style="margin-top:32px">Projekt oddano 21.02.2020</footer>
+
+    </div>
+
+
+
+    <script>
+    // Script to open and close sidebar when on tablets and phones
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("myOverlay").style.display = "none";
+    }
+
+    // Slideshow Apartment Images
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+      showDivs(slideIndex += n);
+    }
+
+    function currentDiv(n) {
+      showDivs(slideIndex = n);
+    }
+
+    function showDivs(n) {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("demo");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length}
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+      }
+      x[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " w3-opacity-off";
+    }
+
+    </script>
+
+  <!-- </div>
   <div class="grid-container">
     <div class="plot">
       <canvas id="myChart"></canvas>
@@ -62,8 +240,8 @@
       <span id="result">?</span>
       <script>document.getElementById('result').innerHTML; </script>
     </div>
-  </div>
-    <!-- <script type="text/javascript" src="/static/plot.js"></script> -->
+  </div> --> -->
+    <!-- <script type="text/javascript" src="/static/plot.js"></script>
 
   </body>
 </html>
