@@ -95,3 +95,8 @@ class UAR():
             plt.savefig("static/images/plot.png", dpi=250)
         if show:
             plt.show()
+            
+    def __get_step__(self):
+        temp = self.__T_n__()
+        self.T_historic.append(temp)
+        return temp
