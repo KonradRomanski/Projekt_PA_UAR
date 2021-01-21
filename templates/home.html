@@ -16,11 +16,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='function.js') }}"></script> -->
     <script type="text/javascript">
-    var interval = setInterval(update_values, 1500);
+    var interval = setInterval(update_values, 100);
     var c = 0;
     var temp = 0;
+    var is_ready = 0;
 
-    function removeData(chart) {
+    function removeData(chart)
+    {
       chart.data.labels.splice(0, 1);
       chart.data.datasets.forEach((dataset) => {
       dataset.data.splice(0, 1);
@@ -28,25 +30,49 @@
     chart.update();
     }
 
-    function update_values() {
+    function update_values()
+    {
+      if (is_ready)
+      {
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+        function(data){
+          $("#result").text(data.result);
+          temp = data.result;
+          console.log("[LOG] - Next value: " + temp);
+        });
+
+        c=c+1;
+        // console.log(c);
+        // console.log(temp);
+        myChart.data.labels.push(c);
+        myChart.data.datasets.forEach((dataset) => {
+          dataset.data.push(temp);
+        });
+        myChart.update();
+        if (c >100) removeData(myChart);
+      }
+      else
+      {
+        console.log("[ERROR] - No data provided")
+      }
+
+    }
+
+    function generate()
+    {
+      javascript_data = 23;
+      $.get( "/getmethod/" + javascript_data );
+
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-      $.getJSON($SCRIPT_ROOT + '/_stuff',
+      $.getJSON($SCRIPT_ROOT + '/_generate',
 
       function(data){
-        $("#result").text(data.result);
-        temp = data.result;
-        console.log(data);
+        $("#msg").text(data.msg);
+        is_ready = data.msg;
+        console.log("[LOG] - Data are created (status: " + data.msg + ")");
       });
-
-      c=c+1;
-      console.log(c);
-      console.log(temp);
-      myChart.data.labels.push(c);
-      myChart.data.datasets.forEach((dataset) => {
-        dataset.data.push(temp);
-      });
-      myChart.update();
-      if (c >100) removeData(myChart);
 
     }
 
@@ -58,7 +84,7 @@
 
 
 
-  <body onload="update_values();" class="w3-content w3-border-left w3-border-right">
+  <body onload="generate(); update_values();" class="w3-content w3-border-left w3-border-right">
 
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px" id="mySidebar">

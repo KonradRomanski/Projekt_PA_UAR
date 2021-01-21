@@ -26,6 +26,11 @@ var myChart = new Chart(ctx, {
                     beginAtZero: true
                 }
             }]
-        }
+        },
+        elements: {
+                   point:{
+                       radius: 0
+                   }
+               }
     }
 });
