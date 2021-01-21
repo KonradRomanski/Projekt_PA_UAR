@@ -89,7 +89,7 @@ class UAR():
     # poniższa funkcja ma przedewszystkim zastosowanie diagnostyczne
     def plot(self, show, save):
         pl = plt.plot(self.T_historic)
-        plt.ylabel('T[stC')
+        plt.ylabel('T[stC]')
         plt.xlabel('n')
         if save:
             plt.savefig("static/images/plot.png", dpi=250)
@@ -97,6 +97,7 @@ class UAR():
             plt.show()
             
     def __get_step__(self):
+        self.e_historic.append(self.__e_n__())
         temp = self.__T_n__()
         self.T_historic.append(temp)
         return temp
