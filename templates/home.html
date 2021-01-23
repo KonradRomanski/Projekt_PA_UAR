@@ -16,10 +16,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='function.js') }}"></script> -->
     <script type="text/javascript">
-    var interval = setInterval(update_values, 100);
+    // var interval = setInterval(update_values, 100);
     var c = 0;
     var temp = 0;
     var is_ready = 0;
+    var dots_at_once = 100;
+    // var data = [];
 
     function removeData(chart)
     {
@@ -40,7 +42,7 @@
         function(data){
           $("#result").text(data.result);
           temp = data.result;
-          console.log("[LOG] - Next value: " + temp);
+          console.log("[LOG] - point added: " + temp);
         });
 
         c=c+1;
@@ -51,7 +53,7 @@
           dataset.data.push(temp);
         });
         myChart.update();
-        if (c >100) removeData(myChart);
+        if (c >dots_at_once) removeData(myChart);
       }
       else
       {
@@ -62,8 +64,6 @@
 
     function generate()
     {
-      javascript_data = 23;
-      $.get( "/getmethod/" + javascript_data );
 
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
       $.getJSON($SCRIPT_ROOT + '/_generate',
@@ -76,6 +76,48 @@
 
     }
 
+    function pr() {event.preventDefault;}
+
+    function pass_data()
+    {
+      let data =
+      [
+        document.getElementById("input_n").value,
+        document.getElementById("input_T_star").value,
+        0,
+        document.getElementById("input_T_amb").value,
+        document.getElementById("input_kp").value,
+        document.getElementById("input_Tp").value,
+        document.getElementById("input_Ti").value,
+        document.getElementById("input_Td").value,
+        document.getElementById("input_A").value,
+        document.getElementById("input_e").value,
+        document.getElementById("input_W").value,
+        document.getElementById("input_S").value,
+      ]
+      // data = [10, 40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2];
+      console.log("[LOG] - Passing data: " + data);
+      // generate(data);
+        $.get( "/getmethod/" + data.join() );
+    }
+
+    function stop_update()
+    {
+      clearInterval(interval);
+      console.log("[LOG] - simulation STOPPED");
+    }
+    function resume_update()
+    {
+      interval = setInterval(update_values, 100);
+      console.log("[LOG] - simulation STARTED");
+    }
+    function restart()
+    {
+      generate();
+      for (var i = 0; i < dots_at_once; i++) {removeData(myChart);}
+      console.log("[LOG] - simulation RESTARTED");
+    }
+
     </script>
     <meta charset="utf-8">
     <title></title>
@@ -85,54 +127,56 @@
 
 
   <body onload="generate(); update_values();" class="w3-content w3-border-left w3-border-right">
-
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px" id="mySidebar">
       <div class="w3-container w3-display-container w3-padding-16">
         <h3>Projekt UAR</h3>
         <h2></h2>
         <hr>
-        <form action="/action_page.php" target="_blank">
+        <!-- <form action="/action_page.php"> -->
+        <form>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>n</label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="n" required>
+            <input id="input_n" class="w3-input w3-border"  type="text" placeholder="Tu wpisz liczbę..." name="n" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>star</sub></label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
+            <input id="input_T_star" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>amb</sub></label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
+            <input id="input_T_amb" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>k<sub>p</sub></label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
+            <input id="input_kp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>p</sub></label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
+            <input id="input_Tp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>i</sub></label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
+            <input id="input_Ti" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>d</sub></label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
+            <input id="input_Td" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>A</label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
+            <input id="input_A" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>e</label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
+            <input id="input_e" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>W</label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
+            <input id="input_W" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>S</label></p>
-            <input class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
+            <input id="input_S" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
 
 
 
-          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane</button></p>
-          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację</button></p>
-          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
-          <p><button class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
+          <p><button onclick="pass_data();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
+          </button></p>
+          <p><button onclick="stop_update();" class="w3-button w3-block w3-dark-gray w3-left-align" type=""><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację
+          </button></p>
+          <p><button onclick="resume_update();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
+          <p><button onclick="restart();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
         </form>
       </div>
     </nav>
@@ -253,6 +297,7 @@
       x[slideIndex-1].style.display = "block";
       dots[slideIndex-1].className += " w3-opacity-off";
     }
+
 
     </script>
 
