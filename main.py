@@ -54,7 +54,7 @@ def get_javascript_data(jsdata):
     print(f"[LOG] - Received data: {sd}");
 
     print(f"[LOG] - Updating object...");
-    uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
+    uar.update_values(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
     print(f"[LOG] - done");
     return jsdata
 
