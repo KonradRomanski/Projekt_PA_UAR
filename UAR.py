@@ -28,6 +28,7 @@ import matplotlib.pyplot as plt
 
 class UAR():
     def __init__(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S):
+        self.TEST = 0
         self.T_star = T_star
         self.T_zero = T_zero
         self.T_amb = T_amb
@@ -42,12 +43,34 @@ class UAR():
         self.S = S
         self.W = W
         self.sigma = 5.6704*(10**(-8))
-        self.pause = threading.Event()                      # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear() 
+        self.pause = threading.Event()                      # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear()
         self.terminate = False                              # ustawienie terminate na true zatrzymuje program
         self.uMin = 0.5                                     # minimalne wzmocnienie
         self.uMax = 2                                       # maksymalne wzmocnienie
-        self.n = n           # diagnostyczne                         
-        self.__start__()
+        self.n = n           # diagnostyczne
+        # self.__start__()
+
+    def update_values(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S):
+        self.TEST = 0
+        self.T_star = T_star
+        self.T_zero = T_zero
+        self.T_amb = T_amb
+        self.kp = kp
+        self.Tp = Tp
+        self.Ti = Ti
+        self.Td = Td
+        self.A = A
+        self.e = e
+        self.T_historic = [T_zero, T_zero]                  # tymczasowa "baza danych" - wartości początkowe muszą być dostępne
+        self.e_historic = [T_star-T_zero, T_star-T_zero]    # tymczasowa "baza danych" - wartości początkowe muszą być dostępne
+        self.S = S
+        self.W = W
+        self.sigma = 5.6704*(10**(-8))
+        self.pause = threading.Event()                      # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear()
+        self.terminate = False                              # ustawienie terminate na true zatrzymuje program
+        self.uMin = 0.5                                     # minimalne wzmocnienie
+        self.uMax = 2                                       # maksymalne wzmocnienie
+        self.n = n
 
     def __T_n__(self):
         return self.T_historic[-1] + self.Tp*(self.S * self.__u_n__() - (self.sigma * self.e * self.A * ((self.T_historic[-1]**4) - (self.T_amb**4)) * self.W))
@@ -81,7 +104,7 @@ class UAR():
                 e_historic.clear()
                 break
             val += 1 # diagnostyczne
-            
+
     def __start__(self):
         t = threading.Thread(name="process", target=self.__build_data__)
         t.start()
@@ -89,9 +112,19 @@ class UAR():
     # poniższa funkcja ma przedewszystkim zastosowanie diagnostyczne
     def plot(self, show, save):
         pl = plt.plot(self.T_historic)
-        plt.ylabel('T[stC')
+        plt.ylabel('T[stC]')
         plt.xlabel('n')
         if save:
             plt.savefig("static/images/plot.png", dpi=250)
         if show:
             plt.show()
+
+    def get_step(self):
+        self.e_historic.append(self.__e_n__())
+        temp = self.__T_n__()
+        self.T_historic.append(temp)
+        return temp
+
+    def get_test(self):
+        self.TEST += 1
+        return self.TEST
