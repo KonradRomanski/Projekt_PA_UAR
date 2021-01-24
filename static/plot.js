@@ -18,7 +18,7 @@ var myChart = new Chart(ctx, {
     options: {
       responsive: true,
       animation:{
-        easing: 'linear'
+        easing: 'easeOutElastic'
       },
         scales: {
             yAxes: [{
@@ -26,6 +26,11 @@ var myChart = new Chart(ctx, {
                     beginAtZero: true
                 }
             }]
-        }
+        },
+        elements: {
+                   point:{
+                       radius: 0
+                   }
+               }
     }
 });
