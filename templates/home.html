@@ -84,7 +84,7 @@
       [
         document.getElementById("input_n").value,
         document.getElementById("input_T_star").value,
-        0,
+        document.getElementById("input_T_zero").value,
         document.getElementById("input_T_amb").value,
         document.getElementById("input_kp").value,
         document.getElementById("input_Tp").value,
@@ -139,38 +139,40 @@
         <form>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>n</label></p>
-            <input id="input_n" class="w3-input w3-border"  type="text" placeholder="Tu wpisz liczbę..." name="n" required>
+            <input value=1000 id="input_n" class="w3-input w3-border"  type="text" placeholder="Tu wpisz liczbę..." name="n" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>star</sub></label></p>
-            <input id="input_T_star" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
+            <input value=40 id="input_T_star" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
 
+            <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>zero</sub></label></p>
+            <input value=70 id="input_T_zero" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_zero" required>
+            
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>amb</sub></label></p>
-            <input id="input_T_amb" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
+            <input value=23 id="input_T_amb" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>k<sub>p</sub></label></p>
-            <input id="input_kp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
+            <input value=1 id="input_kp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>p</sub></label></p>
-            <input id="input_Tp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
+            <input value=0.5 id="input_Tp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>i</sub></label></p>
-            <input id="input_Ti" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
+            <input value=0.5 id="input_Ti" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>T<sub>d</sub></label></p>
-            <input id="input_Td" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
+            <input value=1 id="input_Td" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>A</label></p>
-            <input id="input_A" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
+            <input value=5 id="input_A" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>e</label></p>
-            <input id="input_e" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
+            <input value=0.6 id="input_e" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>W</label></p>
-            <input id="input_W" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
+            <input value=4 id="input_W" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
 
             <p><label><i class="fa fa-angle-right" style="padding-right: 5px;"></i>S</label></p>
-            <input id="input_S" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
-
+            <input value=2 id="input_S" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
 
 
           <p><button onclick="pass_data();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
