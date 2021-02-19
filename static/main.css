@@ -1,28 +1,3 @@
-body
-{
-  /* background-color: #fbffe3; */
-}
-.grid-container
-{
-  display: grid;
-  grid-template-columns: repeat(16, 1fr);
-  grid-template-rows: repeat(9, 1fr);
-  gap: 0px 0px;
-  grid-template-areas:
-    ". . . . . . . . . . . . . . . ."
-    ". option1 plot plot plot plot plot plot plot plot plot plot plot plot . ."
-    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
-    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
-    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
-    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
-    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
-    ". . plot plot plot plot plot plot plot plot plot plot plot plot . ."
-    ". . . . . . . . . . . . . . . .";
-}
-
-.plot { grid-area: plot; }
-
-.option1 { grid-area: option1; }
 
 @media only screen and (max-width: 993px)
 {
@@ -30,9 +5,57 @@ body
   #wzor {font-size: 13px !important; font-weight: bold;}
 }
 
-/* #myChart
-{
-  margin: auto;
- width: 60%;
- padding: 10px;
-} */
+/* pasek z inputami */
+body nav form i {
+  padding-right: 5px;
+}
+/* przesuniecie głownego kontentu wzgledem inputow  */
+body #main {
+  margin-left: 260px;
+}
+
+/* opisy parametrow */
+body #main #zmienne {
+  width:30px;
+  padding-left:30px;
+  font-size: 15px;
+}
+
+/* header */
+body #main .header{
+  padding: 10px 20px;
+}
+
+/* wykres */
+body #main .wykres{
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* opis projektu */
+body #main #opis_projektu #opis{
+  width:30px;
+  padding-left:30px
+}
+
+/* wzor pod opisem */
+body #main #opis_projektu #wzor {
+  width:30px;
+  padding-left:30px;
+  font-size: 20px;
+}
+
+/* nasze imie i nazwisko i iconka */
+body #main #tworcy #imie{
+  width:30px;
+}
+/* opisy naszych prac */
+body #main #tworcy #dane{
+  width:30px;
+  padding-left:30px
+}
+
+/* stopka */
+body #main footer {
+  margin-top:32px;
+}
