@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import random
 from UAR import UAR
 app = Flask(__name__)
@@ -32,6 +32,8 @@ sd = {
     'W' : 4,
     'S' : 2
 }
+# uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
+# print("[LOG] - Data are created")
 
 # sets values
 @app.route('/getmethod/<jsdata>')
@@ -73,11 +75,16 @@ def stuff():
     print(f"[LOG] - Next value: {a}")
     return jsonify(result=a)
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 def home():
-    a = 1
+    # if a == 1:
+    # if request.method == 'POST':
+    #     return render_template('home.html', r = 1)
+        # a == 0
+    # else:
     return render_template('home.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
