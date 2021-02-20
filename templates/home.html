@@ -24,6 +24,7 @@
 
     //=================================================================================================================
     //============IMPLEMENTACJE FUNKCJI================================================================================
+    //Usuwanie danych z wykresu
     function removeData(chart)
     {
       chart.data.labels.splice(0, 1);
@@ -32,11 +33,12 @@
     });
     chart.update();
     }
-
+    //aktualizowanie wartości na wkresie
     function update_values()
     {
       if (is_ready)
       {
+        //pobieranie danych z serwera
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         $.getJSON($SCRIPT_ROOT + '/_stuff',
 
@@ -49,11 +51,13 @@
         c=c+1;
         // console.log(c);
         // console.log(temp);
+        //dodawanie danych na wykres
         myChart.data.labels.push(c);
         myChart.data.datasets.forEach((dataset) => {
           dataset.data.push(temp);
         });
         myChart.update();
+        //usuwanie nadmiarowych danych
         if (c >dots_at_once) removeData(myChart);
       }
       else
@@ -63,6 +67,7 @@
 
     }
 
+    //generowanie danych (obiektu, ktory generuje punkty na wykresie)
     function generate()
     {
 
@@ -76,9 +81,10 @@
       });
 
     }
-
+    //testowa funkcja, blokujaca domyslne ustawienia
     function pr() {event.preventDefault;}
 
+    //przekazanie nowych danych do serwera
     function pass_data()
     {
       let data =
@@ -104,16 +110,19 @@
         $.get( "/getmethod/" + data.join() );
     }
 
+    //zatrzymuje animacje wraz z dodawaniem nowych punktów
     function stop_update()
     {
       clearInterval(interval);
       console.log("[LOG] - simulation STOPPED");
     }
+    //wznowienie generowania danych oraz animacji
     function resume_update()
     {
       interval = setInterval(update_values, 100);
       console.log("[LOG] - simulation STARTED");
     }
+    //generowanie od nowa podstawowego obiektu i usuwanie danych z wykresu
     function restart()
     {
       generate();
@@ -177,7 +186,7 @@
   <!------------------------------------------------------------------------------------------------------------------------->
   <!--------------------HTML START----------------------------------------------------------------------------->
   <!------------------------------------------------------------------------------------------------------------------------->
-
+  <!-- wczytanie strony wraz z uruchomieniem funkcji -->
   <body onload="generate(); update_values();" class="w3-content w3-border-left w3-border-right">
     <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px" id="mySidebar">
       <div class="w3-container w3-display-container w3-padding-16">
