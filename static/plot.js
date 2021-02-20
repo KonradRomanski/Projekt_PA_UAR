@@ -2,7 +2,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [c],
+        labels: [""],
         datasets: [{
             label: 'temperatura',
             data: [temp],
@@ -16,16 +16,40 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+      legend:{
+        display: false
+      },
+      tooltips: {
+    callbacks: {
+       label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+       }
+    }
+},
       responsive: true,
+      maintainAspectRatio: true,
       animation:{
         easing: 'easeOutElastic'
       },
         scales: {
             yAxes: [{
+              gridLines: {
+                display: false,
+                drawOnChartArea: false
+              },
+              display: true,
                 ticks: {
                     beginAtZero: true
+                    // min: 0,
+                    // max: 10
                 }
-            }]
+            }],
+            xAxes: [{
+    gridLines: {
+        display: false,
+        drawOnChartArea: false
+    }
+}]
         },
         elements: {
                    point:{

@@ -32,13 +32,17 @@ sd = {
     'W' : 4,
     'S' : 2
 }
+
+with app.app_context():
+    print("Hello")
+    uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
 # uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
 # print("[LOG] - Data are created")
 
 # sets values
 @app.route('/getmethod/<jsdata>')
 def get_javascript_data(jsdata):
-    # print(f"###[PYLOG] {jsdata}")
+    print(f"###[PYLOG] {jsdata}")
     jsdata_list = list(map(float, jsdata.split(',')))
     # print(f"{jsdata_list}")
     sd['n'] = jsdata_list[0]
@@ -71,7 +75,7 @@ def generate():
 @app.route('/_stuff', methods = ['GET'])
 def stuff():
     a = uar.get_step()
-    print(f"[PYTHON_LOG] - {a}")
+    print(f"[LOG] - {a}")
     print(f"[LOG] - Next value: {a}")
     return jsonify(result=a)
 

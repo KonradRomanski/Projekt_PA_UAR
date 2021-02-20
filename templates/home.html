@@ -4,6 +4,7 @@
     <title>Projekt UAR</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- dodanie potrzebnych plików -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
@@ -20,23 +21,25 @@
     var c = 0;
     var temp = 0;
     var is_ready = 0;
-    var dots_at_once = 100;
+    var dots_at_once = 20;
+    var dots_quantity = 0;
+    var stage = 1;
 
     //=================================================================================================================
     //============IMPLEMENTACJE FUNKCJI================================================================================
     //Usuwanie danych z wykresu
-    function removeData(chart)
+    function removeData(chart, number)
     {
-      chart.data.labels.splice(0, 1);
+      chart.data.labels.splice(number - 1, number);
       chart.data.datasets.forEach((dataset) => {
-      dataset.data.splice(0, 1);
+      dataset.data.splice(number - 1, number);
     });
     chart.update();
     }
     //aktualizowanie wartości na wkresie
     function update_values()
     {
-      if (is_ready)
+      if (1)
       {
         //pobieranie danych z serwera
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
@@ -45,20 +48,23 @@
         function(data){
           $("#result").text(data.result);
           temp = data.result;
-          console.log("[LOG] - point added: " + temp);
         });
 
+        dots_quantity++;
         c=c+1;
-        // console.log(c);
-        // console.log(temp);
-        //dodawanie danych na wykres
-        myChart.data.labels.push(c);
+
+        console.log("[LOG] - point added: " + temp + " label: " + c);
+        myChart.data.labels.push("");
         myChart.data.datasets.forEach((dataset) => {
           dataset.data.push(temp);
         });
         myChart.update();
+
         //usuwanie nadmiarowych danych
-        if (c >dots_at_once) removeData(myChart);
+        // if (c > dots_at_once)
+        // {
+        //   removeData(myChart, 1);
+        // }
       }
       else
       {
@@ -100,7 +106,7 @@
         document.getElementById("input_A").value,
         document.getElementById("input_e").value,
         document.getElementById("input_W").value,
-        document.getElementById("input_S").value,
+        document.getElementById("input_S").value
       ]
       // data = [10, 40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2];
       // data = [10, 40, 70, 23, 1, 0.005, 0.005, 1, 5, 0.6, 4, 2];
@@ -125,9 +131,11 @@
     //generowanie od nowa podstawowego obiektu i usuwanie danych z wykresu
     function restart()
     {
-      generate();
-      for (var i = 0; i < dots_at_once; i++) {removeData(myChart);}
+      // generate();
+      // for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
+      for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
       console.log("[LOG] - simulation RESTARTED");
+      dots_quantity = 0;
     }
 
 
@@ -187,7 +195,7 @@
   <!--------------------HTML START----------------------------------------------------------------------------->
   <!------------------------------------------------------------------------------------------------------------------------->
   <!-- wczytanie strony wraz z uruchomieniem funkcji -->
-  <body onload="generate(); update_values();" class="w3-content w3-border-left w3-border-right">
+  <body onload="update_values();" class="w3-content w3-border-left w3-border-right">
     <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px" id="mySidebar">
       <div class="w3-container w3-display-container w3-padding-16">
         <h3>Projekt UAR</h3><hr>
