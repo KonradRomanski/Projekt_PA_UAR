@@ -208,7 +208,7 @@
          <!--------------------TUTAJ MIEJSCE Z INPUTAMI----------------------------------------------------------------------------->
          <!------------------------------------------------------------------------------------------------------------------------->
 
-        <form>
+        <form onsumbit="return false">
             <p><label><i class="fa fa-angle-right"></i>n</label></p>
             <input value=1000 id="input_n" class="w3-input w3-border"  type="text" placeholder="Tu wpisz liczbę..." name="n" required>
 
@@ -251,12 +251,12 @@
           <!------------------------------------------------------------------------------------------------------------------------->
 
 
-          <p><button onclick="pass_data();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="pass_data();"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
           </button></p>
-          <p><button onclick="stop_update();" class="w3-button w3-block w3-dark-gray w3-left-align" type=""><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="stop_update();"><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację
           </button></p>
-          <p><button onclick="resume_update();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
-          <p><button onclick="restart();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="resume_update();"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="restart();"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
         </form>
       </div>
     </nav>
