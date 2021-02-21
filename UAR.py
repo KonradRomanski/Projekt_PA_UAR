@@ -128,5 +128,3 @@ class UAR():
     def get_test(self):
         self.TEST += 1
         return self.TEST
-
-#test
