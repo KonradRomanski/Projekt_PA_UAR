@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 
 
 class UAR():
-    def __init__(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S):
+    def __init__(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S): # n do usunięcia po zakończeniu diagnozowania czegokolwiek - ewentualnie po prostu wstawić tam domyślnie jakąś useless zmienną albo stałą np. 0
         self.TEST = 0
         self.T_star = T_star
         self.T_zero = T_zero
