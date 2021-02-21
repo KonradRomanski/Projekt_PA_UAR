@@ -34,7 +34,7 @@ sd = {
 }
 
 with app.app_context():
-    print("Hello")
+    print("[LOG] - data are created")
     uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
 # uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
 # print("[LOG] - Data are created")
@@ -75,7 +75,6 @@ def generate():
 @app.route('/_stuff', methods = ['GET'])
 def stuff():
     a = uar.get_step()
-    print(f"[LOG] - {a}")
     print(f"[LOG] - Next value: {a}")
     return jsonify(result=a)
 

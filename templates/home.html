@@ -39,20 +39,20 @@
     //aktualizowanie wartości na wkresie
     function update_values()
     {
-      if (1)
-      {
-        //pobieranie danych z serwera
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-        $.getJSON($SCRIPT_ROOT + '/_stuff',
+      //pobieranie danych z serwera
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      $.getJSON($SCRIPT_ROOT + '/_stuff',
 
-        function(data){
-          $("#result").text(data.result);
-          temp = data.result;
-        });
+      function(data){
+        $("#result").text(data.result);
+        temp = data.result;
+      });
+
+      if (is_ready)
+      {
 
         dots_quantity++;
-        c=c+1;
-
+        c++;
         console.log("[LOG] - point added: " + temp + " label: " + c);
         myChart.data.labels.push("");
         myChart.data.datasets.forEach((dataset) => {
@@ -68,7 +68,9 @@
       }
       else
       {
-        console.log("[ERROR] - No data provided")
+        console.log("[LOG] - Passing trash...")
+        if (is_ready <= 0)
+          is_ready++;
       }
 
     }
@@ -120,6 +122,7 @@
     function stop_update()
     {
       clearInterval(interval);
+      is_ready = 0;
       console.log("[LOG] - simulation STOPPED");
     }
     //wznowienie generowania danych oraz animacji
@@ -132,11 +135,17 @@
     function restart()
     {
       pass_data();
+      is_ready = 0;
+      // setTimeout(() => {  console.log("World!"); }, 2000);
       // generate();
       // for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
       for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
-      console.log("[LOG] - simulation RESTARTED");
+      c = 0;
+      temp = 0;
+      dots_at_once = 20;
       dots_quantity = 0;
+      stage = 1;
+      console.log("[LOG] - simulation RESTARTED");
     }
 
 
@@ -195,8 +204,7 @@
   <!------------------------------------------------------------------------------------------------------------------------->
   <!--------------------HTML START----------------------------------------------------------------------------->
   <!------------------------------------------------------------------------------------------------------------------------->
-  <!-- wczytanie strony wraz z uruchomieniem funkcji -->
-  <body onload="update_values();" class="w3-content w3-border-left w3-border-right">
+  <body class="w3-content w3-border-left w3-border-right">
     <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px" id="mySidebar">
       <div class="w3-container w3-display-container w3-padding-16">
         <h3>Projekt UAR</h3><hr>

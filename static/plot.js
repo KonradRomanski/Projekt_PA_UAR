@@ -2,10 +2,10 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [""],
+        labels: [],
         datasets: [{
             label: 'temperatura',
-            data: [temp],
+            data: [],
             backgroundColor: [
                 'rgba(54, 162, 235, 0.2)',
             ],
