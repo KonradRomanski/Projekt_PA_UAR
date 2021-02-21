@@ -100,8 +100,8 @@ class UAR():
             self.T_historic.append(temp)
             self.pause.wait()
             if (self.terminate):
-                T_historic.clear()
-                e_historic.clear()
+                self.T_historic.clear()
+                self.e_historic.clear()
                 break
             val += 1 # diagnostyczne
 
@@ -128,8 +128,11 @@ class UAR():
     def get_test(self):
         self.TEST += 1
         return self.TEST
+<<<<<<< HEAD
 
 #test
 
 #yololoolo
 #trolololo
+=======
+>>>>>>> 53c021e2641a6a91c01b97ee26b1f70f2f19bab4
