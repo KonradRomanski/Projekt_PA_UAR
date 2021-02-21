@@ -47,7 +47,7 @@
         $("#result").text(data.result);
         temp = data.result;
       });
-
+      //pomijanie niepotrzebnych danych
       if (is_ready)
       {
 
@@ -60,11 +60,6 @@
         });
         myChart.update();
 
-        //usuwanie nadmiarowych danych
-        // if (c > dots_at_once)
-        // {
-        //   removeData(myChart, 1);
-        // }
       }
       else
       {
@@ -75,20 +70,7 @@
 
     }
 
-    //generowanie danych (obiektu, ktory generuje punkty na wykresie)
-    function generate()
-    {
 
-      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-      $.getJSON($SCRIPT_ROOT + '/_generate',
-
-      function(data){
-        $("#msg").text(data.msg);
-        is_ready = data.msg;
-        console.log("[LOG] - Data are created (status: " + data.msg + ")");
-      });
-
-    }
     //testowa funkcja, blokujaca domyslne ustawienia
     function pr() {event.preventDefault;}
 
@@ -112,7 +94,6 @@
       ]
       // data = [10, 40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2];
       // data = [10, 40, 70, 23, 1, 0.005, 0.005, 1, 5, 0.6, 4, 2];
-      // data = [10, 40, 70, 23, 1, document.getElementById("input_Tp").value, document.getElementById("input_Ti").value, 1, 5, 0.6, 4, 2];
       console.log("[LOG] - Passing data: " + data);
       // generate(data);
         $.get( "/getmethod/" + data.join() );
@@ -136,9 +117,7 @@
     {
       pass_data();
       is_ready = 0;
-      // setTimeout(() => {  console.log("World!"); }, 2000);
-      // generate();
-      // for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
+
       for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
       c = 0;
       temp = 0;
