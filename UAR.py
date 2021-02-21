@@ -125,14 +125,7 @@ class UAR():
         self.T_historic.append(temp)
         return temp
 
+#TO JEST INNA WERSJA
     def get_test(self):
         self.TEST += 1
         return self.TEST
-<<<<<<< HEAD
-
-#test
-
-#yololoolo
-#trolololo
-=======
->>>>>>> 53c021e2641a6a91c01b97ee26b1f70f2f19bab4
