@@ -4,6 +4,7 @@
     <title>Projekt UAR</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- dodanie potrzebnych plików -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
@@ -13,56 +14,68 @@
     <script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
     <script type="text/javascript">
-    
+
 
     //=================================================================================================================
     //============DEKLARACJE ZMIENNYCH=================================================================================
     var c = 0;
     var temp = 0;
     var is_ready = 0;
-    var dots_at_once = 100;
-    
+    var dots_at_once = 20;
+    var dots_quantity = 0;
+    var stage = 1;
+
     //=================================================================================================================
     //============IMPLEMENTACJE FUNKCJI================================================================================
-    function removeData(chart)
+    //Usuwanie danych z wykresu
+    function removeData(chart, number)
     {
-      chart.data.labels.splice(0, 1);
+      chart.data.labels.splice(number - 1, number);
       chart.data.datasets.forEach((dataset) => {
-      dataset.data.splice(0, 1);
+      dataset.data.splice(number - 1, number);
     });
     chart.update();
     }
-
+    //aktualizowanie wartości na wkresie
     function update_values()
     {
+      //pobieranie danych z serwera
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+      function(data){
+        $("#result").text(data.result);
+        temp = data.result;
+      });
+
       if (is_ready)
       {
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-        $.getJSON($SCRIPT_ROOT + '/_stuff',
 
-        function(data){
-          $("#result").text(data.result);
-          temp = data.result;
-          console.log("[LOG] - point added: " + temp);
-        });
-
-        c=c+1;
-        // console.log(c);
-        // console.log(temp);
-        myChart.data.labels.push(c);
+        dots_quantity++;
+        c++;
+        console.log("[LOG] - point added: " + temp + " label: " + c);
+        myChart.data.labels.push("");
         myChart.data.datasets.forEach((dataset) => {
           dataset.data.push(temp);
         });
         myChart.update();
-        if (c >dots_at_once) removeData(myChart);
+
+        //usuwanie nadmiarowych danych
+        // if (c > dots_at_once)
+        // {
+        //   removeData(myChart, 1);
+        // }
       }
       else
       {
-        console.log("[ERROR] - No data provided")
+        console.log("[LOG] - Passing trash...")
+        if (is_ready <= 0)
+          is_ready++;
       }
 
     }
 
+    //generowanie danych (obiektu, ktory generuje punkty na wykresie)
     function generate()
     {
 
@@ -76,9 +89,10 @@
       });
 
     }
-
+    //testowa funkcja, blokujaca domyslne ustawienia
     function pr() {event.preventDefault;}
 
+    //przekazanie nowych danych do serwera
     function pass_data()
     {
       let data =
@@ -94,7 +108,7 @@
         document.getElementById("input_A").value,
         document.getElementById("input_e").value,
         document.getElementById("input_W").value,
-        document.getElementById("input_S").value,
+        document.getElementById("input_S").value
       ]
       // data = [10, 40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2];
       // data = [10, 40, 70, 23, 1, 0.005, 0.005, 1, 5, 0.6, 4, 2];
@@ -104,20 +118,33 @@
         $.get( "/getmethod/" + data.join() );
     }
 
+    //zatrzymuje animacje wraz z dodawaniem nowych punktów
     function stop_update()
     {
       clearInterval(interval);
+      is_ready = 0;
       console.log("[LOG] - simulation STOPPED");
     }
+    //wznowienie generowania danych oraz animacji
     function resume_update()
     {
       interval = setInterval(update_values, 100);
       console.log("[LOG] - simulation STARTED");
     }
+    //generowanie od nowa podstawowego obiektu i usuwanie danych z wykresu
     function restart()
     {
-      generate();
-      for (var i = 0; i < dots_at_once; i++) {removeData(myChart);}
+      pass_data();
+      is_ready = 0;
+      // setTimeout(() => {  console.log("World!"); }, 2000);
+      // generate();
+      // for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
+      for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
+      c = 0;
+      temp = 0;
+      dots_at_once = 20;
+      dots_quantity = 0;
+      stage = 1;
       console.log("[LOG] - simulation RESTARTED");
     }
 
@@ -177,20 +204,19 @@
   <!------------------------------------------------------------------------------------------------------------------------->
   <!--------------------HTML START----------------------------------------------------------------------------->
   <!------------------------------------------------------------------------------------------------------------------------->
-
-  <body onload="generate(); update_values();" class="w3-content w3-border-left w3-border-right">
+  <body class="w3-content w3-border-left w3-border-right">
     <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px" id="mySidebar">
       <div class="w3-container w3-display-container w3-padding-16">
         <h3>Projekt UAR</h3><hr>
-        
 
 
-        
+
+
          <!------------------------------------------------------------------------------------------------------------------------->
          <!--------------------TUTAJ MIEJSCE Z INPUTAMI----------------------------------------------------------------------------->
          <!------------------------------------------------------------------------------------------------------------------------->
 
-        <form>
+        <form onsumbit="return false">
             <p><label><i class="fa fa-angle-right"></i>n</label></p>
             <input value=1000 id="input_n" class="w3-input w3-border"  type="text" placeholder="Tu wpisz liczbę..." name="n" required>
 
@@ -199,7 +225,7 @@
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>zero</sub></label></p>
             <input value=70 id="input_T_zero" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_zero" required>
-            
+
             <p><label><i class="fa fa-angle-right"></i>T<sub>amb</sub></label></p>
             <input value=23 id="input_T_amb" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
 
@@ -233,12 +259,12 @@
           <!------------------------------------------------------------------------------------------------------------------------->
 
 
-          <p><button onclick="pass_data();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="pass_data();"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
           </button></p>
-          <p><button onclick="stop_update();" class="w3-button w3-block w3-dark-gray w3-left-align" type=""><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="stop_update();"><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację
           </button></p>
-          <p><button onclick="resume_update();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
-          <p><button onclick="restart();" class="w3-button w3-block w3-dark-gray w3-left-align" type="submit"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="resume_update();"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="restart();"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
         </form>
       </div>
     </nav>

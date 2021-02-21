@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import random
 from UAR import UAR
 app = Flask(__name__)
@@ -33,10 +33,16 @@ sd = {
     'S' : 2
 }
 
+with app.app_context():
+    print("[LOG] - data are created")
+    uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
+# uar = UAR(sd['n'], sd['T_star'], sd['T_zero'], sd['T_amb'], sd['kp'], sd['Tp'], sd['Ti'], sd['Td'], sd['A'], sd['e'], sd['W'], sd['S'])
+# print("[LOG] - Data are created")
+
 # sets values
 @app.route('/getmethod/<jsdata>')
 def get_javascript_data(jsdata):
-    # print(f"###[PYLOG] {jsdata}")
+    print(f"###[PYLOG] {jsdata}")
     jsdata_list = list(map(float, jsdata.split(',')))
     # print(f"{jsdata_list}")
     sd['n'] = jsdata_list[0]
@@ -69,15 +75,19 @@ def generate():
 @app.route('/_stuff', methods = ['GET'])
 def stuff():
     a = uar.get_step()
-    print(f"[PYTHON_LOG] - {a}")
     print(f"[LOG] - Next value: {a}")
     return jsonify(result=a)
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 def home():
-    a = 1
+    # if a == 1:
+    # if request.method == 'POST':
+    #     return render_template('home.html', r = 1)
+        # a == 0
+    # else:
     return render_template('home.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
