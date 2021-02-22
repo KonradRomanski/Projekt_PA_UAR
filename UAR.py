@@ -144,35 +144,35 @@ class UAR():
 
     # Funkcja zwraca uchyb ustalony w momencie, kiedy już się ustali. Przed tym nie zwraca nic.
     # Uchyb ustalony mamy wtedy, kiedy temp przyjmuje wartości <= o dany % T_star
-    def uchybUstalony(self, licznik):
+    def uchybUstalony(self):
         ileProcent = 5  # granica
         granica = abs(ileProcent * (self.T_zero - self.T_star) / 100)
-        if licznik > 1:
+        if len(self.T_historic) > 2:
             # sprawdzamy, czy jest przełamanie fali
-            if abs((self.T_star - self.T_historic[licznik - 1])) > abs((self.T_star - self.T_historic[licznik])) > abs(
-                    (self.T_star - self.T_historic[licznik - 2])):
-                if abs((self.T_star - self.T_historic[licznik - 1])) < granica:
-                    return abs(self.T_star - self.T_historic[licznik - 1])
+            if abs((self.T_star - self.T_historic[-2])) > abs((self.T_star - self.T_historic[-1])) > abs(
+                    (self.T_star - self.T_historic[-3])):
+                if abs((self.T_star - self.T_historic[-2])) < granica:
+                    return abs(self.T_star - self.T_historic[-2])
 
     # stała wartość, teoretycznie powinna być w %, więc można return pomnożyć razy 100
-    def przeregulowanie(self, licznik):
-        if licznik > 1:
+    def przeregulowanie(self):
+        if len(self.T_historic) > 2:
             # sprawdzamy, czy jest przełamanie fali
-            if abs((self.T_star - self.T_historic[licznik - 1])) > abs((self.T_star - self.T_historic[licznik])) > abs(
-                    (self.T_star - self.T_historic[licznik - 2])):
+            if abs((self.T_star - self.T_historic[-2])) > abs((self.T_star - self.T_historic[-1])) > abs(
+                    (self.T_star - self.T_historic[-3])):
                 return abs((max(self.T_historic) - self.T_star) / self.T_star)
 
     # stała wartość, zwraca n*okres próbkowania
-    def czasRegulacji(self, licznik):
+    def czasRegulacji(self):
         if self.L_czasRegObl == 0:
             deltaT = self.L_paramtetrRegulacji * self.T_star
-            if licznik > 1:
+            if len(self.T_historic) > 2:
                 # sprawdzamy, czy jest przełamanie fali
-                if abs((self.T_star - self.T_historic[licznik - 1])) > abs(
-                        (self.T_star - self.T_historic[licznik])) > abs((self.T_star - self.T_historic[licznik - 2])):
+                if abs((self.T_star - self.T_historic[-2])) > abs((self.T_star - self.T_historic[-1])) > abs(
+                        (self.T_star - self.T_historic[-3])):
                     # Czy musi być and tutaj?
-                    if (self.T_star - deltaT) <= self.T_historic[licznik] <= (self.T_star + deltaT):
-                        self.L_czasRegObl = licznik * self.Tp
+                    if (self.T_star - deltaT) <= self.T_historic[-1] <= (self.T_star + deltaT):
+                        self.L_czasRegObl = len(self.T_historic) * self.Tp
                         return self.L_czasRegObl
 
     def dokladnoscRegulacji_e(self):
