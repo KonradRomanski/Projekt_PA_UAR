@@ -77,7 +77,7 @@ class UAR():
         self.pause = threading.Event()  # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear()
         self.terminate = False  # ustawienie terminate na true zatrzymuje program
         self.uMin = 0.5  # minimalne wzmocnienie
-        self.uMax = 2  # maksymalne wzmocnienie
+        self.uMax = 3  # maksymalne wzmocnienie
         self.n = n
 
     def __T_n__(self):
