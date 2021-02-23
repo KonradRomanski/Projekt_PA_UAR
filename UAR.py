@@ -49,6 +49,9 @@ class UAR():
         self.terminate = False  # ustawienie terminate na true zatrzymuje program
         self.uMin = 0.5  # minimalne wzmocnienie
         self.uMax = 2  # maksymalne wzmocnienie
+        self.uchybUstalonyvar = -1
+        self.przeregulowanievar = -1
+        self.czasRegulacjivar = -1
         self.n = n  # diagnostyczne
         # self.__start__()
 
@@ -152,7 +155,8 @@ class UAR():
             if abs((self.T_star - self.T_historic[-2])) > abs((self.T_star - self.T_historic[-1])) > abs(
                     (self.T_star - self.T_historic[-3])):
                 if abs((self.T_star - self.T_historic[-2])) < granica:
-                    return abs(self.T_star - self.T_historic[-2])
+                    self.uchybUstalonyvar = abs(self.T_star - self.T_historic[-2])
+                    return self.uchybUstalonyvar
         return ""
 
     # stała wartość, teoretycznie powinna być w %, więc można return pomnożyć razy 100
@@ -161,7 +165,8 @@ class UAR():
             # sprawdzamy, czy jest przełamanie fali
             if abs((self.T_star - self.T_historic[-2])) > abs((self.T_star - self.T_historic[-1])) > abs(
                     (self.T_star - self.T_historic[-3])):
-                return abs((max(self.T_historic) - self.T_star) / self.T_star)
+                self.przeregulowanievar = abs((max(self.T_historic) - self.T_star) / self.T_star)
+                return self.przeregulowanievar
         return ""
 
     # stała wartość, zwraca n*okres próbkowania
@@ -175,6 +180,7 @@ class UAR():
                     # Czy musi być and tutaj?
                     if (self.T_star - deltaT) <= self.T_historic[-1] <= (self.T_star + deltaT):
                         self.L_czasRegObl = len(self.T_historic) * self.Tp
+                        self.czasRegulacjivar = self.L_czasRegObl
                         return self.L_czasRegObl
         return ""
 
