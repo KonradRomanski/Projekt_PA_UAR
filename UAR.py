@@ -153,6 +153,7 @@ class UAR():
                     (self.T_star - self.T_historic[-3])):
                 if abs((self.T_star - self.T_historic[-2])) < granica:
                     return abs(self.T_star - self.T_historic[-2])
+        return ""
 
     # stała wartość, teoretycznie powinna być w %, więc można return pomnożyć razy 100
     def przeregulowanie(self):
@@ -161,6 +162,7 @@ class UAR():
             if abs((self.T_star - self.T_historic[-2])) > abs((self.T_star - self.T_historic[-1])) > abs(
                     (self.T_star - self.T_historic[-3])):
                 return abs((max(self.T_historic) - self.T_star) / self.T_star)
+        return ""
 
     # stała wartość, zwraca n*okres próbkowania
     def czasRegulacji(self):
@@ -174,27 +176,30 @@ class UAR():
                     if (self.T_star - deltaT) <= self.T_historic[-1] <= (self.T_star + deltaT):
                         self.L_czasRegObl = len(self.T_historic) * self.Tp
                         return self.L_czasRegObl
+        return ""
 
-    def dokladnoscRegulacji_e(self):
-        suma = 0
-        for n in self.e_historic:
-            suma += abs(n)
-        return self.Tp * suma
 
-    def dokladnoscRegulacji_e2(self):
-        suma = 0
-        for n in self.e_historic:
-            suma += n ** 2
-        return self.Tp * suma
 
-    def kosztyRegulacji_u(self):
-        suma = 0
-        for n in self.u_historic:
-            suma += abs(n)
-        return self.Tp * suma
-
-    def kosztyRegulacji_u2(self):
-        suma = 0
-        for n in self.u_historic:
-            suma += n ** 2
-        return self.Tp * suma
+    # def dokladnoscRegulacji_e(self):
+    #     suma = 0
+    #     for n in self.e_historic:
+    #         suma += abs(n)
+    #     return self.Tp * suma
+    #
+    # def dokladnoscRegulacji_e2(self):
+    #     suma = 0
+    #     for n in self.e_historic:
+    #         suma += n ** 2
+    #     return self.Tp * suma
+    #
+    # def kosztyRegulacji_u(self):
+    #     suma = 0
+    #     for n in self.u_historic:
+    #         suma += abs(n)
+    #     return self.Tp * suma
+    #
+    # def kosztyRegulacji_u2(self):
+    #     suma = 0
+    #     for n in self.u_historic:
+    #         suma += n ** 2
+    #     return self.Tp * suma
