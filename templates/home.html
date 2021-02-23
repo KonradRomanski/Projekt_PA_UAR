@@ -24,9 +24,9 @@
     var dots_at_once = 20;
     var dots_quantity = 0;
     var stage = 1;
-    var uchyb = "";
-    var przeregulowanie = "";
-    var czas = "";
+    var uchyb = "--";
+    var przeregulowanie = "--";
+    var czas = "--";
 
     //=================================================================================================================
     //============IMPLEMENTACJE FUNKCJI================================================================================
@@ -52,9 +52,9 @@
         uchyb = data.B;
         przeregulowanie = data.C;
         czas = data.D;
-        if (uchyb == -1) uchyb = ""
-        if (przeregulowanie == -1) przeregulowanie = ""
-        if (czas == -1) czas = ""
+        if (uchyb == -1) uchyb = "--";
+        if (przeregulowanie == -1) przeregulowanie = "--";
+        if (czas == -1) czas = "--";
       });
       //pomijanie niepotrzebnych danych
       if (is_ready)
@@ -87,10 +87,11 @@
     function pr() {event.preventDefault;}
 
     //przekazanie nowych danych do serwera
-    function pass_data()
+    function pass_data(select)
     {
       let data =
       [
+        select,
         document.getElementById("input_T_star").value,
         document.getElementById("input_T_zero").value,
         document.getElementById("input_T_amb").value,
@@ -128,7 +129,7 @@
     function restart()
     {
       stop_update();
-      pass_data();
+      pass_data(0);
       is_ready = 0;
 
       for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
@@ -264,20 +265,20 @@
           <br><!--<input type="checkbox" id="scales" name="scales" checked>
           <label for="scales">Wskaźniki jakości</label>-->
 
-          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="pass_data();"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
+          <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="pass_data(1);"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
           </button></p>
           <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="stop_update();"><i class="fa fa-hand-paper"style="padding-right: 10px;"></i>Zatrzymaj symulację
           </button></p>
           <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="resume_update();"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
           <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="restart();"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
           <br>
-          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2); pass_data(); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Nastawa 1
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Nastawa 1
           </button></p>
-          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(320, 293, 293, 1, 0.5, 0.1, 0.6, 0.116275, 0.6, 0.53565383622, 9.16431585); pass_data(); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Aluminium
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(320, 293, 293, 1, 0.5, 0.1, 0.6, 0.116275, 0.6, 0.53565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Aluminium
           </button></p>
-          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(323, 280, 295, 0.01, 0.5, 0.01, 1, 0.11625, 0.5, 1.03565383622, 9.16431585); pass_data(); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Miedź
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(323, 280, 295, 0.01, 0.5, 0.01, 1, 0.11625, 0.5, 1.03565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Miedź
           </button></p>
-          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(317, 300, 293, 0.8, 0.3, 0.03, 0.2, 0.11625, 0.9, 0.53565383622, 9.16431585); pass_data(); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Ceramika
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(317, 300, 293, 0.8, 0.3, 0.03, 0.2, 0.11625, 0.9, 0.53565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Ceramika
           </button></p>
 
         </form>
