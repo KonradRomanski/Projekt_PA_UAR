@@ -185,6 +185,17 @@ class UAR():
         return ""
 
 
+    def uvar(self):
+        self.uchybUstalony();
+        return self.uchybUstalonyvar
+
+    def pvar(self):
+        self.przeregulowanie();
+        return self.przeregulowanievar
+
+    def cvar(self):
+        self.czasRegulacji();
+        return self.czasRegulacjivar
 
     # def dokladnoscRegulacji_e(self):
     #     suma = 0
