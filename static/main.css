@@ -59,3 +59,5 @@ body #main #tworcy #dane{
 body #main footer {
   margin-top:32px;
 }
+
+#uchybUstalony, #przeregulowanie, #czas {  display: inline; }

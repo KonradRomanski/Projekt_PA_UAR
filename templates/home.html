@@ -24,6 +24,9 @@
     var dots_at_once = 20;
     var dots_quantity = 0;
     var stage = 1;
+    var uchyb = 111;
+    var przeregulowanie = 333;
+    var czas = 666;
 
     //=================================================================================================================
     //============IMPLEMENTACJE FUNKCJI================================================================================
@@ -44,8 +47,11 @@
       $.getJSON($SCRIPT_ROOT + '/_stuff',
 
       function(data){
-        $("#result").text(data.result);
-        temp = data.result;
+        $("#result").text(data.A);
+        temp = data.A;
+        uchyb = data.B;
+        przeregulowanie = data.C;
+        czas = data.D;
       });
       //pomijanie niepotrzebnych danych
       if (is_ready)
@@ -53,7 +59,7 @@
 
         dots_quantity++;
         c++;
-        console.log("[LOG] - point added: " + temp + " label: " + c);
+        console.log("[LOG] - point added: " + temp + " label: " + c +  "  Uchyb ustalony: " + uchyb + " Przeregulowanie: " + przeregulowanie + " Czas regulacji: " + czas );
         myChart.data.labels.push("");
         myChart.data.datasets.forEach((dataset) => {
           dataset.data.push(temp);
@@ -68,6 +74,9 @@
           is_ready++;
       }
 
+      document.getElementById("uchybUstalony").innerHTML = uchyb;
+      document.getElementById("przeregulowanie").innerHTML = przeregulowanie;
+      document.getElementById("czas").innerHTML = czas;
     }
 
 
@@ -104,6 +113,7 @@
       clearInterval(interval);
       is_ready = 0;
       console.log("[LOG] - simulation STOPPED");
+
     }
     //wznowienie generowania danych oraz animacji
     function resume_update()
@@ -125,7 +135,7 @@
       stage = 1;
       console.log("[LOG] - simulation RESTARTED");
     }
-    
+
       //autouzupelnienie inputów
     function autoFill(T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S) {
       $('.T_star').val(T_star);
@@ -136,9 +146,9 @@
       $('.Ti').val(Ti);
       $('.Td').val(Td);
       $('.A').val(A);
-      $('.e').val(e);  
-      $('.W').val(W);  
-      $('.S').val(S);          
+      $('.e').val(e);
+      $('.W').val(W);
+      $('.S').val(S);
     }
 
 
@@ -209,7 +219,7 @@
          <!------------------------------------------------------------------------------------------------------------------------->
 
         <form onsumbit="return false">
-          
+
             <p><label><i class="fa fa-angle-right"></i>T<sub>star</sub></label></p>
             <input value=40 id="input_T_star" class="w3-input w3-border T_star" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
 
@@ -294,7 +304,12 @@
 
               <canvas id="myChart"></canvas>
               <script type="text/javascript" src="{{ url_for('static', filename='plot.js') }}"></script>
-
+              <pre>Uchyb ustalony: <p id="uchybUstalony"></p>    Przeregulowanie: <p id="przeregulowanie"></p>    Czas regulacji: <p id="czas"></p></pre>
+              <script type="text/javascript">
+              document.getElementById("uchybUstalony").innerHTML = uchyb;
+              document.getElementById("przeregulowanie").innerHTML = przeregulowanie;
+              document.getElementById("czas").innerHTML = czas;
+              </script>
             </div><br><br>
         </div>
 

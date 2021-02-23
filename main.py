@@ -55,8 +55,11 @@ def get_javascript_data(jsdata):
 @app.route('/_stuff', methods = ['GET'])
 def stuff():
     a = uar.get_step()
-    print(f"[LOG] - Next value: {a}")
-    return jsonify(result=a)
+    b = uar.uchybUstalony()
+    c = uar.przeregulowanie()
+    d = uar.czasRegulacji()
+    print(f"[LOG] - Next value: {a}, Uchyb ustalony: {b}, Przeregulowanie: {c}, Czas regulacji: {d}")
+    return jsonify(A = a, B = b, C = c, D = d)
 
 
 @app.route("/", methods=['GET', 'POST'])
