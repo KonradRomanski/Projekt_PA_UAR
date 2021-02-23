@@ -47,7 +47,7 @@
         $("#result").text(data.result);
         temp = data.result;
       });
-
+      //pomijanie niepotrzebnych danych
       if (is_ready)
       {
 
@@ -60,11 +60,6 @@
         });
         myChart.update();
 
-        //usuwanie nadmiarowych danych
-        // if (c > dots_at_once)
-        // {
-        //   removeData(myChart, 1);
-        // }
       }
       else
       {
@@ -75,20 +70,7 @@
 
     }
 
-    //generowanie danych (obiektu, ktory generuje punkty na wykresie)
-    function generate()
-    {
 
-      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-      $.getJSON($SCRIPT_ROOT + '/_generate',
-
-      function(data){
-        $("#msg").text(data.msg);
-        is_ready = data.msg;
-        console.log("[LOG] - Data are created (status: " + data.msg + ")");
-      });
-
-    }
     //testowa funkcja, blokujaca domyslne ustawienia
     function pr() {event.preventDefault;}
 
@@ -97,7 +79,6 @@
     {
       let data =
       [
-        document.getElementById("input_n").value,
         document.getElementById("input_T_star").value,
         document.getElementById("input_T_zero").value,
         document.getElementById("input_T_amb").value,
@@ -112,7 +93,6 @@
       ]
       // data = [10, 40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2];
       // data = [10, 40, 70, 23, 1, 0.005, 0.005, 1, 5, 0.6, 4, 2];
-      // data = [10, 40, 70, 23, 1, document.getElementById("input_Tp").value, document.getElementById("input_Ti").value, 1, 5, 0.6, 4, 2];
       console.log("[LOG] - Passing data: " + data);
       // generate(data);
         $.get( "/getmethod/" + data.join() );
@@ -136,9 +116,7 @@
     {
       pass_data();
       is_ready = 0;
-      // setTimeout(() => {  console.log("World!"); }, 2000);
-      // generate();
-      // for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
+
       for (var i = 0; i < dots_quantity; i++) {removeData(myChart, 1);}
       c = 0;
       temp = 0;
@@ -147,7 +125,21 @@
       stage = 1;
       console.log("[LOG] - simulation RESTARTED");
     }
-
+    
+      //autouzupelnienie inputów
+    function autoFill(T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S) {
+      $('.T_star').val(T_star);
+      $('.T_zero').val(T_zero);
+      $('.T_amb').val(T_amb);
+      $('.kp').val(kp);
+      $('.Tp').val(Tp);
+      $('.Ti').val(Ti);
+      $('.Td').val(Td);
+      $('.A').val(A);
+      $('.e').val(e);  
+      $('.W').val(W);  
+      $('.S').val(S);          
+    }
 
 
     //=================================================================================================================
@@ -217,47 +209,46 @@
          <!------------------------------------------------------------------------------------------------------------------------->
 
         <form onsumbit="return false">
-            <p><label><i class="fa fa-angle-right"></i>n</label></p>
-            <input value=1000 id="input_n" class="w3-input w3-border"  type="text" placeholder="Tu wpisz liczbę..." name="n" required>
-
+          
             <p><label><i class="fa fa-angle-right"></i>T<sub>star</sub></label></p>
-            <input value=40 id="input_T_star" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
+            <input value=40 id="input_T_star" class="w3-input w3-border T_star" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>zero</sub></label></p>
-            <input value=70 id="input_T_zero" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_zero" required>
+            <input value=70 id="input_T_zero" class="w3-input w3-border T_zero" type="text" placeholder="Tu wpisz liczbę..." name="T_zero" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>amb</sub></label></p>
-            <input value=23 id="input_T_amb" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
+            <input value=23 id="input_T_amb" class="w3-input w3-border T_amb" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
 
             <p><label><i class="fa fa-angle-right"></i>k<sub>p</sub></label></p>
-            <input value=1 id="input_kp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
+            <input value=1 id="input_kp" class="w3-input w3-border kp" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>p</sub></label></p>
-            <input value=0.5 id="input_Tp" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
+            <input value=0.5 id="input_Tp" class="w3-input w3-border Tp" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>i</sub></label></p>
-            <input value=0.5 id="input_Ti" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
+            <input value=0.5 id="input_Ti" class="w3-input w3-border Ti" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>d</sub></label></p>
-            <input value=1 id="input_Td" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
+            <input value=1 id="input_Td" class="w3-input w3-border Td" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
 
             <p><label><i class="fa fa-angle-right"></i>A</label></p>
-            <input value=5 id="input_A" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
+            <input value=5 id="input_A" class="w3-input w3-border A" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
 
             <p><label><i class="fa fa-angle-right"></i>e</label></p>
-            <input value=0.6 id="input_e" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
+            <input value=0.6 id="input_e" class="w3-input w3-border e" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
 
             <p><label><i class="fa fa-angle-right"></i>W</label></p>
-            <input value=4 id="input_W" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
+            <input value=4 id="input_W" class="w3-input w3-border W" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
 
             <p><label><i class="fa fa-angle-right"></i>S</label></p>
-            <input value=2 id="input_S" class="w3-input w3-border" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
+            <input value=2 id="input_S" class="w3-input w3-border S" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
 
 
           <!------------------------------------------------------------------------------------------------------------------------->
           <!--------------------TUTAJ GUZIKI DO STEROWANIA WYKRESEM------------------------------------------------------------------>
           <!------------------------------------------------------------------------------------------------------------------------->
-
+          <br><input type="checkbox" id="scales" name="scales" checked>
+          <label for="scales">Wskaźniki jakości</label>
 
           <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="pass_data();"><i class="fa fa-check" style="padding-right: 10px;"></i>Aktualizuj dane
           </button></p>
@@ -265,6 +256,14 @@
           </button></p>
           <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="resume_update();"><i class="fa fa-play"style="padding-right: 10px;"></i>Rozpocznij symulację</button></p>
           <p><button id="button" type="button" value="send" class="w3-button w3-block w3-dark-gray w3-left-align" onclick="restart();"><i class="fas fa-redo"style="padding-right: 10px;"></i>Restart</button></p>
+          <br>
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Nastawa 1
+          </button></p>
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(320, 293, 293, 1, 0.5, 0.1, 0.6, 0.116275, 0.6, 0.53565383622, 9.16431585); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Nastawa 2
+          </button></p>
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(323, 280, 295, 0.01, 0.5, 0.01, 1, 0.11625, 0.5, 1.03565383622, 9.16431585); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Nastawa 3
+          </button></p>
+        
         </form>
       </div>
     </nav>
