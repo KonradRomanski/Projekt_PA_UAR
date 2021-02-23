@@ -60,7 +60,7 @@ class UAR():
         self.L_paramtetrRegulacji = 0.05  # parametr o wartości pomiędzy 0,01 do 0,05, aby obliczyć deltaT, możnaby dodać kontrolkę na stronie, żeby user def
         self.u_historic = []
 
-    def update_values(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S):
+    def restart_values(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S):
         self.TEST = 0
         self.T_star = T_star
         self.T_zero = T_zero
@@ -82,6 +82,29 @@ class UAR():
         self.uMin = 0.5  # minimalne wzmocnienie
         self.uMax = 3  # maksymalne wzmocnienie
         self.n = n
+
+    def update_values(self, n, T_star, T_zero, T_amb, kp, Tp, Ti, Td, A, e, W, S):
+        self.TEST = 0
+        self.T_star = T_star
+        self.T_zero = T_zero
+        self.T_amb = T_amb
+        self.kp = kp
+        self.Tp = Tp
+        self.Ti = Ti
+        self.Td = Td
+        self.A = A
+        self.e = e
+        # self.T_historic = [T_zero, T_zero]  # tymczasowa "baza danych" - wartości początkowe muszą być dostępne
+        self.e_historic = [T_star - T_zero,
+                           T_star - T_zero]  # tymczasowa "baza danych" - wartości początkowe muszą być dostępne
+        self.S = S
+        self.W = W
+        # self.sigma = 5.6704 * (10 ** (-8))
+        # self.pause = threading.Event()  # pauza - po uruchomieniu trzeba najpierw ustawić żeby rozpocząć (.set()). Żeby wstrzymać .clear()
+        # self.terminate = False  # ustawienie terminate na true zatrzymuje program
+        # self.uMin = 0.5  # minimalne wzmocnienie
+        # self.uMax = 3  # maksymalne wzmocnienie
+        # self.n = n    
 
     def __T_n__(self):
         return self.T_historic[-1] + self.Tp * (self.S * self.__u_n__() - (
