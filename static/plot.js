@@ -33,6 +33,10 @@ var myChart = new Chart(ctx, {
       },
         scales: {
             yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Temperatura [K]'
+              },
               gridLines: {
                 display: false,
                 drawOnChartArea: false
@@ -45,6 +49,10 @@ var myChart = new Chart(ctx, {
                 }
             }],
             xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Czas [s]'
+              },
     gridLines: {
         display: false,
         drawOnChartArea: false

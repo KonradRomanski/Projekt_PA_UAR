@@ -27,6 +27,7 @@
     var uchyb = "--";
     var przeregulowanie = "--";
     var czas = "--";
+    var tik = 0;
 
     //=================================================================================================================
     //============IMPLEMENTACJE FUNKCJI================================================================================
@@ -42,6 +43,7 @@
     //aktualizowanie wartości na wkresie
     function update_values()
     {
+      tik++;
       //pobieranie danych z serwera
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
       $.getJSON($SCRIPT_ROOT + '/_stuff',
@@ -80,6 +82,7 @@
       document.getElementById("uchybUstalony").innerHTML = uchyb;
       document.getElementById("przeregulowanie").innerHTML = przeregulowanie;
       document.getElementById("czas").innerHTML = czas;
+      // document.getElementById("tikczas").innerHTML = tik;
     }
 
 
@@ -309,12 +312,13 @@
 
               <canvas id="myChart"></canvas>
               <script type="text/javascript" src="{{ url_for('static', filename='plot.js') }}"></script>
+              <!-- <pre>Miniony czas: <p id="tikczas"></p> s</pre> -->
               <h3>Wskaźniki jakości</h4>
               <pre>
                    <div>Uchyb ustalony: <p id="uchybUstalony"></p> K</div><br>
                    <div>Przeregulowanie: <p id="przeregulowanie"></p></div><br>
                    <div>Czas regulacji: <p id="czas"></p> s</div>
-              </pre>        
+              </pre>
               <script type="text/javascript">
               document.getElementById("uchybUstalony").innerHTML = uchyb;
               document.getElementById("przeregulowanie").innerHTML = przeregulowanie;
