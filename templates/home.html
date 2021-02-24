@@ -309,13 +309,18 @@
 
               <canvas id="myChart"></canvas>
               <script type="text/javascript" src="{{ url_for('static', filename='plot.js') }}"></script>
-              <pre>Uchyb ustalony: <p id="uchybUstalony"></p>    Przeregulowanie: <p id="przeregulowanie"></p>    Czas regulacji: <p id="czas"></p></pre>
+              <h3>Wskaźniki jakości</h4>
+              <pre>
+                   <div>Uchyb ustalony: <p id="uchybUstalony"></p></div><br>
+                   <div>Przeregulowanie: <p id="przeregulowanie"></p></div><br>
+                   <div>Czas regulacji: <p id="czas"></p></div>
+              </pre>        
               <script type="text/javascript">
               document.getElementById("uchybUstalony").innerHTML = uchyb;
               document.getElementById("przeregulowanie").innerHTML = przeregulowanie;
               document.getElementById("czas").innerHTML = czas;
               </script>
-            </div><br><br>
+            </div><br>
         </div>
 
 
@@ -370,14 +375,14 @@
 
         <i id="imie" class="fa fa-user"></i>Tomasz Pieścikowski<br>
         <i id="dane"></i>145418<br><br>
-        <i id="dane">Napotkali mnie stróże, którzy krążyli po mieście; bili mnie i zranili; stróże murów zabrali mi także mój szal.</i><br><br><br>
+        <i id="dane">Praca nad wizualną częścią strony(html/css), pomoc przy podłączeniu jej do serwera oraz drobne naprawy związanych z tym błędów.</i><br><br><br>
       </div>
 
 
       <!------------------------------------------------------------------------------------------------------------------------->
       <!--------------------FOOTER----------------------------------------------------------------------------------------------->
       <!------------------------------------------------------------------------------------------------------------------------->
-      <footer class="w3-container w3-padding-16">Projekt oddano 21.02.2020</footer>
+      <footer class="w3-container w3-padding-16">Projekt oddano 24.02.2020</footer>
 
 
     </div>
