@@ -226,37 +226,37 @@
         <form onsumbit="return false">
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>star</sub></label></p>
-            <input value=40 id="input_T_star" class="w3-input w3-border T_star" type="text" placeholder="Tu wpisz liczbę..." name="T_star" required>
+            <input value=40 id="input_T_star" class="w3-input w3-border T_star" type="text" placeholder="Tu wpisz liczbę..." name="T_star (temperatura docelowa)" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>zero</sub></label></p>
-            <input value=70 id="input_T_zero" class="w3-input w3-border T_zero" type="text" placeholder="Tu wpisz liczbę..." name="T_zero" required>
+            <input value=70 id="input_T_zero" class="w3-input w3-border T_zero" type="text" placeholder="Tu wpisz liczbę..." name="T_zero (temperatura początkowa)" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>amb</sub></label></p>
-            <input value=23 id="input_T_amb" class="w3-input w3-border T_amb" type="text" placeholder="Tu wpisz liczbę..." name="T_amb" required>
+            <input value=23 id="input_T_amb" class="w3-input w3-border T_amb" type="text" placeholder="Tu wpisz liczbę..." name="T_amb (temperatura otoczenia)" required>
 
             <p><label><i class="fa fa-angle-right"></i>k<sub>p</sub></label></p>
-            <input value=1 id="input_kp" class="w3-input w3-border kp" type="text" placeholder="Tu wpisz liczbę..." name="kp" required>
+            <input value=1 id="input_kp" class="w3-input w3-border kp" type="text" placeholder="Tu wpisz liczbę..." name="kp (wzmocnienie regulatora)" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>p</sub></label></p>
-            <input value=0.5 id="input_Tp" class="w3-input w3-border Tp" type="text" placeholder="Tu wpisz liczbę..." name="Tp" required>
+            <input value=0.5 id="input_Tp" class="w3-input w3-border Tp" type="text" placeholder="Tu wpisz liczbę..." name="Tp (okres próbkowania)" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>i</sub></label></p>
-            <input value=0.5 id="input_Ti" class="w3-input w3-border Ti" type="text" placeholder="Tu wpisz liczbę..." name="Ti" required>
+            <input value=0.5 id="input_Ti" class="w3-input w3-border Ti" type="text" placeholder="Tu wpisz liczbę..." name="Ti (czas zdwojenia)" required>
 
             <p><label><i class="fa fa-angle-right"></i>T<sub>d</sub></label></p>
-            <input value=1 id="input_Td" class="w3-input w3-border Td" type="text" placeholder="Tu wpisz liczbę..." name="Td" required>
+            <input value=1 id="input_Td" class="w3-input w3-border Td" type="text" placeholder="Tu wpisz liczbę..." name="Td (czas wyprzedzenia)" required>
 
             <p><label><i class="fa fa-angle-right"></i>A</label></p>
-            <input value=5 id="input_A" class="w3-input w3-border A" type="text" placeholder="Tu wpisz liczbę..." name="A" required>
+            <input value=5 id="input_A" class="w3-input w3-border A" type="text" placeholder="Tu wpisz liczbę..." name="A (pole powierzchni)" required>
 
             <p><label><i class="fa fa-angle-right"></i>e</label></p>
-            <input value=0.6 id="input_e" class="w3-input w3-border e" type="text" placeholder="Tu wpisz liczbę..." name="e" required>
+            <input value=0.6 id="input_e" class="w3-input w3-border e" type="text" placeholder="Tu wpisz liczbę..." name="e (emitancja)" required>
 
             <p><label><i class="fa fa-angle-right"></i>W</label></p>
-            <input value=4 id="input_W" class="w3-input w3-border W" type="text" placeholder="Tu wpisz liczbę..." name="W" required>
+            <input value=4 id="input_W" class="w3-input w3-border W" type="text" placeholder="Tu wpisz liczbę..." name="W (współczynnik pracy do temperatury)" required>
 
             <p><label><i class="fa fa-angle-right"></i>S</label></p>
-            <input value=2 id="input_S" class="w3-input w3-border S" type="text" placeholder="Tu wpisz liczbę..." name="S" required>
+            <input value=2 id="input_S" class="w3-input w3-border S" type="text" placeholder="Tu wpisz liczbę..." name="S (wydzielane ciepło)" required>
 
 
           <!------------------------------------------------------------------------------------------------------------------------->
@@ -274,11 +274,11 @@
           <br>
           <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(40, 70, 23, 1, 0.5, 0.5, 1, 5, 0.6, 4, 2); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Nastawa 1
           </button></p>
-          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(320, 293, 293, 1, 0.5, 0.1, 0.6, 0.116275, 0.6, 0.53565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Aluminium
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(320, 293, 293, 1, 0.5, 0.1, 0.6, 0.116275, 0.6, 0.53565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Emitancja aluminium
           </button></p>
-          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(323, 280, 295, 0.01, 0.5, 0.01, 1, 0.11625, 0.5, 1.03565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Miedź
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(323, 280, 295, 0.01, 0.5, 0.01, 1, 0.11625, 0.5, 1.03565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Emitancja miedzi
           </button></p>
-          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(317, 300, 293, 0.8, 0.3, 0.03, 0.2, 0.11625, 0.9, 0.53565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Ceramika
+          <p><button id="button" type="button" class="w3-button w3-block w3-dark-gray w3-left-align" href="#" onClick="autoFill(317, 300, 293, 0.8, 0.3, 0.03, 0.2, 0.11625, 0.9, 0.53565383622, 9.16431585); pass_data(1); return false;" role="button"><i class="fa fa-check" style="padding-right: 10px;"></i>Emitancja ceramiki
           </button></p>
 
         </form>
@@ -304,16 +304,16 @@
     <!------------------------------------------------------------------------------------------------------------------------->
     <div class="w3-main w3-white" id="main">
         <div class="header">
-            <h3>UAR wykorzystania małego układu, które powinno uzyskać żądaną temperaturę przy jedynie pasywnej utracie ciepła</h2>
+            <h3>UAR temperatury procesora, przy pasywnej stracie energii</h2>
             <div class="wykres">
 
               <canvas id="myChart"></canvas>
               <script type="text/javascript" src="{{ url_for('static', filename='plot.js') }}"></script>
               <h3>Wskaźniki jakości</h4>
               <pre>
-                   <div>Uchyb ustalony: <p id="uchybUstalony"></p></div><br>
+                   <div>Uchyb ustalony: <p id="uchybUstalony"></p> K</div><br>
                    <div>Przeregulowanie: <p id="przeregulowanie"></p></div><br>
-                   <div>Czas regulacji: <p id="czas"></p></div>
+                   <div>Czas regulacji: <p id="czas"></p> s</div>
               </pre>        
               <script type="text/javascript">
               document.getElementById("uchybUstalony").innerHTML = uchyb;
@@ -330,27 +330,26 @@
         <!------------------------------------------------------------------------------------------------------------------------->
         <div class="w3-container" id="opis_projektu">
             <h2>Opis projektu</h2>
-            <i id="opis">Sterowaniem jest objęte wykorzystanie pewnego urządzenia. Wykorzystanie
+            <i id="opis">Sterowaniem jest temperatura procesora. Wykorzystanie
                 urządzenia generuje straty energii, które końcowo objawiają się podwyższeniem
-                temperatury urządzenia. Temperatura, do której jest wysterowywane urządzenie,
-                oznacza to, że urządzenie może wykonać pewne zadanie szybciej (oczywiście w
-                pewnych granicach), niż przy średnim obciążeniu urządzenia.</i><br><br><br>
+                temperatury urządzenia. Niższa temperatura od docelowej oznacza to, że można "podkręcić" procesor a więc wykonać pewne zadanie szybciej (oczywiście w
+                pewnych granicach), niż przy nominalnej mocy urządzenia.</i><br><br><br>
             <i id="wzor">T(n + 1) = (S · u(n) - (σeA(T<sup>4</sup>(n) - T<sub>0</sub><sup>4</sup>) · W)t<sub>p</sub> + T(n)</i><br><br><br>
         </div>
 
         <i id="zmienne">T(n) - temperatura ostatnia</i><br><br>
         <i id="zmienne">T(n+1) - temperatura następna</i><br><br>
 
-        <i id="zmienne">S - wydzielane ciepło w Kelwinach, przy minimalnym,</i><br><br>
-        <i id="zmienne"> zalecanym wykorzystaniu urządzenia na sekundę</i><br><br>
+       <!--<i id="zmienne">S - wydzielane ciepło w Kelwinach, przy minimalnym,</i><br><br>
+        <i id="zmienne"> zalecanym wykorzystaniu urządzenia na sekundę</i><br><br>-->
 
         <i id="zmienne">u(n) - wielkość sterująca</i><br><br>
-        <i id="zmienne">A - pole powierzchni oddającej ciepło</i><br><br>
-        <i id="zmienne">T0- temperatura otoczenia/początkowa</i><br><br>
-        <i id="zmienne">tp- okres próbkowania  </i><br><br>
+        <!--<i id="zmienne">A - pole powierzchni oddającej ciepło</i><br><br>-->
+        <!--<i id="zmienne">T0- temperatura otoczenia/początkowa</i><br><br>-->
+        <!--<i id="zmienne">tp- okres próbkowania  </i><br><br>-->
         <i id="zmienne">σ - Stała Stefana-Boltzmanna 5.6704 · 10<sup>-8</sup> [W/m<sup>2</sup>K<sup>4</sup>]</i><br><br>
-        <i id="zmienne">e - emitancja obiektu (zakres od 0 do 1)</i><br><br>
-        <i id="zmienne">W - konwersja Jouli na Kelwiny [K/J]</i><br><br><br><br>
+        <!--<i id="zmienne">e - emitancja obiektu (zakres od 0 do 1)</i><br><br>-->
+        <!--<i id="zmienne">W - konwersja Jouli na Kelwiny [K/J]</i><br><br><br><br>-->
 
 
 
@@ -359,7 +358,7 @@
       <!------------------------------------------------------------------------------------------------------------------------->
       <!--------------------OPISY NASZYCH DZIALAN-------------------------------------------------------------------------------->
       <!------------------------------------------------------------------------------------------------------------------------->
-      <div class="w3-container" id="tworcy">
+      <!--<div class="w3-container" id="tworcy">
         <h2>Twórcy projektu</h2>
         <i id="imie" class="fa fa-user"></i>Lena Ptak<br>
         <i id="dane"></i>145226<br><br>
@@ -376,7 +375,7 @@
         <i id="imie" class="fa fa-user"></i>Tomasz Pieścikowski<br>
         <i id="dane"></i>145418<br><br>
         <i id="dane">Praca nad wizualną częścią strony(html/css), pomoc przy podłączeniu jej do serwera oraz drobne naprawy związanych z tym błędów.</i><br><br><br>
-      </div>
+      </div>-->
 
 
       <!------------------------------------------------------------------------------------------------------------------------->
