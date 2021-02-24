@@ -309,13 +309,18 @@
 
               <canvas id="myChart"></canvas>
               <script type="text/javascript" src="{{ url_for('static', filename='plot.js') }}"></script>
-              <pre>Uchyb ustalony: <p id="uchybUstalony"></p>    Przeregulowanie: <p id="przeregulowanie"></p>    Czas regulacji: <p id="czas"></p></pre>
+              <h3>Wskaźniki jakości</h4>
+              <pre>
+                   <div>Uchyb ustalony: <p id="uchybUstalony"></p></div><br>
+                   <div>Przeregulowanie: <p id="przeregulowanie"></p></div><br>
+                   <div>Czas regulacji: <p id="czas"></p></div>
+              </pre>        
               <script type="text/javascript">
               document.getElementById("uchybUstalony").innerHTML = uchyb;
               document.getElementById("przeregulowanie").innerHTML = przeregulowanie;
               document.getElementById("czas").innerHTML = czas;
               </script>
-            </div><br><br>
+            </div><br>
         </div>
 
 
