@@ -62,4 +62,9 @@ body #main footer {
 
 pre {margin: 0 0 0 30px; position: relative; top: -20px;}
 #uchybUstalony, #przeregulowanie, #czas {  display: inline;  margin: 0 0 0 20px;}
+#tikczas
+{
+  display: inline;
+  margin: 40px 0 0 20px;
+}
 pre div { position: absolute; margin: 0 0 0 0; padding: 0; }
